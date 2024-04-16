@@ -1,1 +1,611 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+// Define the bus structure
+typedef struct {
+    char bus_name[50];
+    double bus_number;
+}bus,bus1,bus2,bus3,bus6,bus7;
+
+// Declare global variables
+int s_point,d_point;
+int select,qty;
+char startPname[50], destinationName[50];
+char* bookingStatus = "Unbooked";
+char* greet = "Your ticket have cancelled, Please Try Again latter";
+int busNum;
+int s_number;
+    char startpoint[50];
+    char destination[50];
+    bool else1 = false;
+    int busNoOption1 = 0;
+    
+// Function Declare
+void display();
+int data_store();
+void SearchOption();
+void busSelect();
+
+void ticketSelect();
+char* fromStop();
+char* toStop();
+int busOption1();
+void ticket_generate();
+
+
+
+int main()
+{
+    
+    printf("\tWelcome to JAIPUR City Bus\n");
+    printf("1.Search Route with Bus\n");
+    printf("2.Bus Number or Name\n");
+    printf("Select any one Serial Number:");
+    scanf("%d",&s_number);
+    if(s_number==1){
+        SearchOption();
+    }else if(s_number==2){
+       display(); 
+    }else{
+        printf("Please select Invalid Option\n\n");
+        main();
+    }
+    
+    ticket_generate();
+    printf("%s",greet);
+    return 0;
+}
+
+void SearchOption(){
+
+    int i = 1;
+     printf("\nEnter Starting Point: ");
+    getchar(); // Consume newline character
+    
+    fgets(startpoint, sizeof(startpoint), stdin);
+    startpoint[strcspn(startpoint, "\n")] = '\0';
+    printf("Select destination: ");
+    
+    fgets(destination, sizeof(destination), stdin);
+    destination[strcspn(destination, "\n")] = '\0';
+    printf("\nAvailable Bus Status\n");
+    for(int i=1;i<=7;i++){
+        if(i==4 || i==5){
+            continue;
+        }
+       data_store(i); 
+    }
+    
+    if(else1==false){
+       printf("No Bus available on this route");
+    }else{
+    ticketSelect();
+    }
+}
+
+void display(){
+    printf("\n -Bus Number or Route Name\n");
+    bus bus[] = {
+        {"BHAIRU KHEJDA TO KHOLE HANUMAN JI", 1},
+        {"TRANSPORT NGR TO VKI NO.17", 2},
+        {"DWARKA PURI TO TRANSPORT NGR", 3},
+        {"AIRPORT TO KHIRNI PHATAK PULIYA", 6},
+        {"KHIRNI PHATAK PULIYA TO TRANSPORT NGR", 7}
+    };
+    for(int i=0;i<5;i++){
+    printf("Bus No.%.0f | %s\n",bus[i].bus_number,bus[i].bus_name);
+    }
+    busSelect();
+}
+void busSelect(){
+    
+    printf("\nSelect the Bus No.: ");
+    scanf("%d",&busNum);
+    printf("\n");
+    
+    if(s_number == 2){ 
+        data_store(busNum);
+    }
+}
+
+int data_store(int busNum){
+    int i = 0;
+    bool found = false;
+    bool found1 = false;
+    
+    int size;
+    char check[50];
+  switch(busNum){
+      case 1:
+    bus1 bus[] = {
+        {"BHAIRU KHEJDA", 00},
+        {"TODI DEPOT", 10},
+        {"TODI MOD", 10},
+        {"HARMARA", 10},
+        {"NINDHAR MOD", 10},
+        {"ANOKHA GAAV", 10},
+        {"VKI NO.14", 10},
+        {"VKI NO.12", 10},
+        {"VKI NNO.9", 10},
+        {"VKI NO.8", 10},
+        {"VKI NO.5", 10},
+        {"VKI NO.1", 16},
+        {"M.SCHOOL", 16},
+        {"KHETAN HOS", 16},
+        {"DHER KA BALAJI", 16},
+        {"BHAWANI NIKETAN", 16},
+        {"CHOMU PULIYA", 16},
+        {"AMBA BARI", 16},
+        {"PANI PACH", 16},
+        {"CHINKARA", 16},
+        {"RAM MANDIR", 16},
+        {"RAILWAY STATION", 20},
+        {"SINDHI CAMP", 20},
+        {"CHANDPOLE", 20},
+        {"CHOTI CHOPAR", 20},
+        {"BADI CHOPAR", 20},
+        {"RAMGANJ CHOPAD", 20},
+        {"GALTA", 20},
+        {"EIDGAH", 20},
+        {"KHOLE KE HANUMAN JI", 20}
+    };
+    size = sizeof(bus)/ sizeof(bus[1]);
+    if(s_number==2){
+    for(i;i<size;i++){
+        printf("%d.%s\n",i+1,bus[i].bus_name);
+    }
+    printf("\nSelect your start point(Serial No.): ");
+    scanf("%d", &s_point);
+    printf("Destination: ");
+    scanf("%d", &d_point);
+    strcpy(startPname,bus[--s_point].bus_name);
+    strcpy(destinationName,bus[--d_point].bus_name);
+     if(s_point>size||d_point>size){
+        printf("Wrong Input\n");
+        return 0;
+    }
+    }else{
+        for(i;i<size;i++){
+            if(strcmp(startpoint,bus[i].bus_name) == 0){
+                
+                found = true;
+                break;
+            }
+        }
+        if(found==true){
+         for(i;i<size;i++){
+            if(strcmp(destination,bus[i].bus_name) == 0){
+                
+                found1 = true;
+                break;
+            }
+        }
+        }
+        if(found==true && found1==true){
+            printf("Bus No. 1 \n");
+            found == false;
+            found1 == false;
+            else1 = true;
+            busNoOption1 =1;
+        }
+        
+    }
+      break;
+      case 2:
+    bus2 bus2[] = {
+        {"TRANSPORT NGR", 00},
+        {"GHAT GATE", 00},
+        {"SANGANERI GATE", 00},
+        {"AJMERI GATE", 00},
+        {"PANCH BATI", 00},
+        {"GPO", 00},
+        {"CHANDPOLE", 00},
+        {"MAYANK", 00},
+        {"POWER HOUSE", 00},
+        {"PITAL FACTORY", 00},
+        {"T.B. HOSPITAL", 00},
+        {"PANI PATH", 00},
+        {"AMBA BARI", 00},
+        {"CHOMU PULIYA", 00},
+        {"BHAWANI NIKETAN", 00},
+        {"DHER KA BALAJI", 00},
+        {"KHETAN HOS", 00},
+        {"ALKA CINEMA", 00},
+        {"VKI NO.1", 00},
+        {"VKI NO.5", 00},
+        {"VKI NO.8", 00},
+        {"VKI NO.9", 00},
+        {"RD 9 CANTEEN", 00},
+        {"VKI NO.14", 00},
+        {"VKI NO.17", 00}
+    };
+     size = sizeof(bus2)/ sizeof(bus2[1]);
+     if(s_number==2){
+    for(i;i<size;i++){
+        printf("%d.%s\n",i+1,bus2[i].bus_name);
+    }
+    printf("\nSelect your start point(Serial No.): ");
+    scanf("%d", &s_point);
+    printf("Destination: ");
+    scanf("%d", &d_point);
+    strcpy(startPname,bus2[--s_point].bus_name);
+    strcpy(destinationName,bus2[--d_point].bus_name);
+     if(s_point>size||d_point>size){
+        printf("Wrong Input\n");
+        return 0;
+    }
+     }else{
+        for(i;i<size;i++){
+            if(strcmp(startpoint,bus2[i].bus_name) == 0){
+                
+                found = true;
+                break;
+            }
+        }
+        if(found==true){
+         for(i;i<size;i++){
+            if(strcmp(destination,bus2[i].bus_name) == 0){
+                
+                found1 = true;
+                break;
+            }
+        }
+        }
+        if(found==true && found1==true){
+            printf("Bus No. 2 \n");
+            found = false;
+            found1 = false;
+            else1 = true;
+            busNoOption1 =2;
+        }
+        
+    }
+      break;
+      case 3:
+    bus3 bus3[] = {
+        {"DWARKA PURI", 00},
+        {"NRI", 00},
+        {"SECTOR 16", 00},
+        {"BHARO MANDIR", 00},
+        {"SECTOR 11", 00},
+        {"SECTOR 10", 00},
+        {"SECTOR 8", 00},
+        {"SECTOR 5", 00},
+        {"SECTOR 3", 00},
+        {"GOSHALA", 00},
+        {"BOOKING", 00},
+        {"SANGANER THANA", 00},
+        {"KALYAN NAGAR", 00},
+        {"RAM MANDIR", 00},
+        {"TARO KI KOOT", 00},
+        {"CITY PLEX", 00},
+        {"DURGAPURA", 00},
+        {"MAHAVEER NAGAR", 00},
+        {"GOPALPURA", 00},
+        {"SAYEED KA GATTA", 00},
+        {"TONK PHATAK", 00},
+        {"SABJI MANDI", 00},
+        {"GANDHI NAGAR MOD", 00},
+        {"LAL KOTHI", 00},
+        {"RAMBAGH CIRCLE", 00},
+        {"NARAYAN SINGH CIRCLE", 00},
+        {"SMS HOSPITAL", 00},
+        {"MAHARANI COLLAGE", 00},
+        {"AJMERI GATE", 00},
+        {"SANGANERI GATE", 00},
+        {"GHAT GATE", 00},
+        {"TRANSPORT NGR", 00}
+    };
+     size = sizeof(bus3)/ sizeof(bus3[1]);
+     if(s_number==2){
+    for(i;i<size;i++){
+        printf("%d.%s\n",i+1,bus3[i].bus_name);
+    }
+    printf("\nSelect your start point(Serial No.): ");
+    scanf("%d", &s_point);
+    printf("Destination: ");
+    scanf("%d", &d_point);
+    strcpy(startPname,bus3[--s_point].bus_name);
+    strcpy(destinationName,bus3[--d_point].bus_name);
+     if(s_point>size||d_point>size){
+        printf("Wrong Input\n");
+        return 0;
+    }
+     }else{
+        for(i;i<size;i++){
+            if(strcmp(startpoint,bus3[i].bus_name) == 0){
+                
+                found = true;
+                break;
+            }
+        }
+        if(found==true){
+         for(i;i<size;i++){
+            if(strcmp(destination,bus3[i].bus_name) == 0){
+                
+                found1 = true;
+                break;
+            }
+        }
+        }
+        if(found==true && found1==true){
+            printf("Bus No. 3 \n");
+            found = false;
+            found1 = false;
+            else1 = true;
+            busNoOption1 =3;
+        }
+        
+    }
+      break;
+      case 6:
+    bus6 bus6[] = {
+        {"AIRPORT", 00},
+        {"MALVIYA NGR", 00},
+        {"SECTOR 10 MALVIYA NGR", 00},
+        {"SECTOR 11 MALVIYA NGR", 00},
+        {"SECTOR 15", 00},
+        {"SECTOR 3 MALVIYA NGR", 00},
+        {"SECTOR 2", 00},
+        {"KELGIRI MOD", 00},
+        {"HARI MARG", 00},
+        {"PRADHAN MARG", 00},
+        {"SARAS DAIRY", 00},
+        {"MNIT", 00},
+        {"GANDHI NGR", 00},
+        {"TONK PHATAK", 00},
+        {"SABJI MANDI", 00},
+        {"GANDHI NGR MOD", 00},
+        {"LAL KOTHI", 00},
+        {"RAMBAGH CIRCLE", 00},
+        {"NARAYAN SINGH CIRCLE", 00},
+        {"SMS HOSPITAL", 00},
+        {"MAHARANI COLLAGE", 00},
+        {"AJMERI GATE", 00},
+        {"PANCH BATI", 00},
+        {"GPO", 00},
+        {"KHAKSHA KHOTI", 00},
+        {"COLLECTORATE", 00},
+        {"CHINKARA", 00},
+        {"PANI PACH", 00},
+        {"AMBA BARI", 00},
+        {"CHOMU PULIYA", 00},
+        {"LATA CIRCLE", 00},
+        {"PANCHAYAT SAMITI", 00},
+        {"MEDICIAL CENTER", 00},
+        {"BORING ROAD", 00},
+        {"KANTA CIRCLE", 00},
+        {"RAM NAGAR", 00},
+        {"LAL MANDIR", 00},
+        {"KHIRNI PHATAK PULIYA", 00}
+    };
+     size = sizeof(bus6)/ sizeof(bus6[1]);
+     if(s_number==2){
+    for(i;i<size;i++){
+        printf("%d.%s\n",i+1,bus6[i].bus_name);
+    }
+    printf("\nSelect your start point(Serial No.): ");
+    scanf("%d", &s_point);
+    printf("Destination: ");
+    scanf("%d", &d_point);
+    strcpy(startPname,bus6[--s_point].bus_name);
+    strcpy(destinationName,bus6[--d_point].bus_name);
+     if(s_point>size||d_point>size){
+        printf("Wrong Input\n");
+        return 0;
+    }
+     }else{
+        for(i;i<size;i++){
+            if(strcmp(startpoint,bus6[i].bus_name) == 0){
+                
+                found = true;
+                break;
+            }
+        }
+        if(found==true){
+         for(i;i<size;i++){
+            if(strcmp(destination,bus6[i].bus_name) == 0){
+                
+                found1 = true;
+                break;
+            }
+        }
+        }
+        if(found==true && found1==true){
+            printf("Bus No. 6 \n");
+            found = false;
+            found1 = false;
+            else1 = true;
+            busNoOption1 =6;
+        }
+        
+    }
+      break;
+      case 7:
+    bus7 bus7[] = {
+        {"KHIRNI PHATAK PULIYA", 00},
+        {"PANCHAYALA PULIYA", 00},
+        {"BAJRI MANDIR PULIYA", 00},
+        {"KARNI PLACE", 00},
+        {"GANDHI PATH", 00},
+        {"CHITRKOOT PULIYA", 00},
+        {"HEERA PURA", 00},
+        {"SUNDAR NGR", 00},
+        {"NEW TP NGR", 00},
+        {"DHARAM KATA", 00},
+        {"GANGA JAMUNA", 00},
+        {"GUJAR KI THADI", 00},
+        {"MAHESH NGR MOD", 00},
+        {"SURYA NGR", 00},
+        {"RIDHI SIDHI", 00},
+        {"TRIVENI NGR", 00},
+        {"MAHAVEER NGR", 00},
+        {"GOPALPURA MOD", 00},
+        {"SAYEED KA GATTA", 00},
+        {"TONK PHATAK", 00},
+        {"SABJI MANDI", 00},
+        {"GANDHI NGR MOD", 00},
+        {"LAL KOTHI", 00},
+        {"RAMBAGH CIRCLE", 00},
+        {"NARAYAN SINGH CIRCLE", 00},
+        {"TRIMURTI CIRCLE", 00},
+        {"DHARAM SINGH CIRCLE", 00},
+        {"RAJA PARK", 00},
+        {"BARAF KHANA", 00},
+        {"MANTAL HOSPITAL", 00},
+        {"TP NGR MOD", 00},
+        {"TRANSPORT NGR", 00}
+    };
+     size = sizeof(bus7)/ sizeof(bus7[1]);
+     if(s_number==2){
+    for(i;i<size;i++){
+        printf("%d.%s\n",i+1,bus7[i].bus_name);
+    }
+    printf("\nSelect your start point(Serial No.): ");
+    scanf("%d", &s_point);
+    printf("Destination: ");
+    scanf("%d", &d_point);
+    strcpy(startPname,bus7[--s_point].bus_name);
+    strcpy(destinationName,bus7[--d_point].bus_name);
+    if(s_point>size||d_point>size){
+        printf("Wrong Input\n");
+        return 0;
+    }
+     }else{
+        for(i;i<size;i++){
+            if(strcmp(startpoint,bus7[i].bus_name) == 0){
+                
+                found = true;
+                break;
+            }
+        }
+        if(found==true){
+         for(i;i<size;i++){
+            if(strcmp(destination,bus7[i].bus_name) == 0){
+                
+                found1 = true;
+                break;
+            }
+        }
+        }
+        if(found==true && found1==true){
+            printf("Bus No. 7 \n");
+            found = false;
+            found1 = false;
+            else1 = true;
+            busNoOption1 =7;
+        }
+        
+    }
+      break;
+      default:
+      printf("Invalid selection");
+      return 0;
+  }
+  if(s_number == 2){ 
+        ticketSelect();
+    }
+    
+  
+  return 1;
+}
+
+void ticketSelect(){
+    
+    printf("\n");
+    printf("1.Full\n");
+    printf("2.Student\n");
+    printf("3.Female\n");
+    printf("4.Child\n");
+    printf("Select Option(Serial No.):");
+    scanf("%d",&select);
+    printf("Quantity:");
+    scanf("%d",&qty);
+    bookingStatus = "booked";
+    greet = "Thabk You, Happy Jorney";
+}
+char* fromStop(){
+    if(s_number == 2){ 
+        return startPname;
+    }else{
+        return startpoint;
+    }
+}
+char* toStop(){
+    if(s_number == 2){ 
+        return destinationName;
+    }else{
+        return destination;
+    }
+}
+int busOption1(){
+    if(s_number == 2){ 
+        return busNum;
+    }else{
+        return busNoOption1;
+    }
+}
+void ticket_generate(){
+    int total = 10, discount = 0;
+    char *dis_name = "Nill";
+    total += d_point + 1; // Adding destination point (this seems like an unintended operation)
+    total *= qty; // Multiply total by quantity
+    
+    switch(select){
+        case 1:
+            discount = 0;
+            dis_name = "No Discount";
+            break;
+        case 2:
+            discount = total / 2;  // Divide total by 2 for student discount
+            dis_name = "Student";
+            break;
+        case 3:
+            discount = total * 20 / 100;  // Apply 20% discount for female
+            dis_name = "Female";
+            break;
+        case 4:
+            discount = total / 2;  // Divide total by 2 for child ticket
+            dis_name = "Child";
+            break;
+        default:
+            discount = 0; // Default price if no discount selected
+            break;
+    }
+    
+    int final_price = total - discount;
+    
+    printf("\n\n************JAIPUR CITY BUS************\n");
+    printf("\tTicket - Description\n");
+    printf("Booking Time      : \n");
+    printf("Bus No.           : %d\n", busOption1());
+    printf("From Stop         : %s\n", fromStop());
+    printf("To Stop           : %s\n", toStop());
+    printf("Discount Type     : %s\n", dis_name);
+    printf("No. of Passenger  : %d\n", qty);
+    printf("Ticket price      : %d\n", total);
+    printf("Discount          :-%d\n", discount);
+    printf("Total Price       : %d\n", final_price);
+    printf("Booking Status    : %s\n\n",bookingStatus);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
